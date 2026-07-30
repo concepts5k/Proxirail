@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossing demonstration | ProxiRail</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="page-enter crossing-demo-page">
+    <nav class="site-nav" aria-label="Demonstration navigation">
+        <div class="nav-inner">
+            <a
+                class="nav-logo"
+                href="{{ url_for('home') }}#welcome"
+                data-transition-url="{{ url_for('home') }}#welcome"
+            >
+                ProxiRail
+            </a>
+
+            <div class="nav-links">
+                <a
+                    href="{{ url_for('home') }}#welcome"
+                    data-transition-url="{{ url_for('home') }}#welcome"
+                >
+                    Return to welcome
+                </a>
+
+                <button id="presentationModeButton" class="presentation-button" type="button">
+                    Presentation mode
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="crossing-page-main">
+        <section class="crossing-page-heading page-shell">
+            <div>
+                <p class="eyebrow dark-eyebrow">Interactive prototype scene</p>
+                <h1>Crossing demonstration</h1>
+                <p>
+                    Hold the control to move the train logo forward. The front-facing
+                    pedestrian and camera beam demonstrate how the project will be
+                    presented without using a realistic train image.
+                </p>
+            </div>
+
+            <aside class="prototype-stamp small-stamp">
+                <span>Scene status</span>
+                <strong>Simulated</strong>
+                <small>Not live safety guidance</small>
+            </aside>
+        </section>
+
+        <section class="crossing-experience page-shell">
+            <div id="crossingScene" class="crossing-scene">
+                <div class="crossing-sky"></div>
+                <div class="crossing-horizon"></div>
+
+                <div class="crossing-camera">
+                    <div class="crossing-camera-head">
+                        <span class="crossing-camera-lens"></span>
+                    </div>
+                    <div class="crossing-camera-pole"></div>
+                    <span class="crossing-camera-label">Camera</span>
+                </div>
+
+                <div id="cameraBeam" class="crossing-camera-beam"></div>
+
+                <div id="frontPerson" class="front-person" aria-label="Front-facing pedestrian">
+                    <span class="front-head"></span>
+                    <span class="front-ear left-ear"></span>
+                    <span class="front-ear right-ear"></span>
+                    <span class="front-eye left-eye"></span>
+                    <span class="front-eye right-eye"></span>
+                    <span class="front-mouth"></span>
+                    <span class="front-neck"></span>
+                    <span class="front-torso"></span>
+                    <span class="front-arm left-front-arm"></span>
+                    <span class="front-arm right-front-arm"></span>
+                    <span class="front-hand left-hand"></span>
+                    <span class="front-hand right-hand"></span>
+                    <span class="front-leg left-front-leg"></span>
+                    <span class="front-leg right-front-leg"></span>
+                    <span class="front-foot left-foot"></span>
+                    <span class="front-foot right-foot"></span>
+                </div>
+
+                <div class="crossing-warning-zone">
+                    <span>Pedestrian crossing zone</span>
+                </div>
+
+                <div id="crossingTrain" class="moving-train-logo" aria-label="Temporary train logo placeholder">
+                    <span class="moving-logo-rail"></span>
+                    <span class="moving-logo-dot"></span>
+                    <strong>Train logo</strong>
+                    <small>Replace with your design</small>
+                </div>
+
+                <div class="perspective-track">
+                    <span class="perspective-rail left-perspective-rail"></span>
+                    <span class="perspective-rail right-perspective-rail"></span>
+                    <span class="rail-tie tie-one"></span>
+                    <span class="rail-tie tie-two"></span>
+                    <span class="rail-tie tie-three"></span>
+                    <span class="rail-tie tie-four"></span>
+                    <span class="rail-tie tie-five"></span>
+                </div>
+
+                <div id="crossingAlert" class="crossing-alert">
+                    Camera and train-logo activity detected
+                </div>
+            </div>
+
+            <div class="crossing-controls">
+                <button id="holdCrossingTrainButton" class="hold-button" type="button">
+                    Hold to move the train logo
+                </button>
+
+                <button id="resetCrossingDemoButton" class="secondary-button" type="button">
+                    Reset demonstration
+                </button>
+
+                <button
+                    id="returnWelcomeButton"
+                    class="secondary-button return-welcome-button"
+                    type="button"
+                    data-transition-url="{{ url_for('home') }}#welcome"
+                >
+                    Return to welcome
+                </button>
+            </div>
+
+            <div class="crossing-status-grid">
+                <article>
+                    <span>Train logo</span>
+                    <strong id="crossingTrainStatus">Waiting</strong>
+                </article>
+
+                <article>
+                    <span>Camera</span>
+                    <strong id="crossingCameraStatus">Monitoring the crossing</strong>
+                </article>
+
+                <article>
+                    <span>Pedestrian</span>
+                    <strong id="crossingPersonStatus">Front view detected</strong>
+                </article>
+            </div>
+
+            <p id="crossingInstruction" class="crossing-instruction">
+                Hold the yellow button to move the temporary train logo. When the
+                demonstration reaches its final stage, the page will fade and return
+                to the Welcome title.
+            </p>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
