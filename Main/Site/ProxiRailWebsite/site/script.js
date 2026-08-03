@@ -22,17 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
         ).matches;
 
     /*
-        Automatic opening sequence:
+        Updated automatic sequence:
 
-        1. Display the title and subheading for 10 seconds
-        2. Start the train and pedestrian animation
-        3. Wait for the animation to finish
-        4. Scroll to the PET Way section
+        1. Welcome text appears
+        2. Train starts after 1.2 seconds
+        3. Train slows and stops
+        4. Page scrolls to PET Way
     */
 
-    const readingTime = 10000;
-    const trainAnimationTime = 2600;
-    const pauseAfterTrain = 600;
+    const introDelay = 1200;
+    const trainAnimationTime = 3200;
+    const pauseAfterTrain = 800;
 
     if (welcomeSection && petWaySection) {
         if (reducedMotion) {
@@ -41,34 +41,28 @@ document.addEventListener("DOMContentLoaded", () => {
                     behavior: "auto",
                     block: "start"
                 });
-            }, readingTime);
+            }, 2500);
         } else {
-            /*
-                Begin the train animation after
-                the visitor has had 10 seconds to read.
-            */
-
             window.setTimeout(() => {
                 welcomeSection.classList.add(
                     "auto-sequence"
                 );
-            }, readingTime);
-
-            /*
-                Scroll after the train animation finishes.
-            */
+            }, introDelay);
 
             window.setTimeout(() => {
                 petWaySection.scrollIntoView({
                     behavior: "smooth",
                     block: "start"
                 });
-            }, readingTime + trainAnimationTime + pauseAfterTrain);
+            },
+            introDelay +
+            trainAnimationTime +
+            pauseAfterTrain);
         }
     }
 
     /*
-        Railroad ID buttons
+        Railroad ID selection
     */
 
     railroadButtons.forEach((button) => {
