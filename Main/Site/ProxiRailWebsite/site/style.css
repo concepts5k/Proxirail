@@ -291,7 +291,7 @@ body.page-loaded .welcome-description {
 .welcome-section.auto-sequence .moving-train {
     animation:
         proxirail-train-slow-stop
-        2600ms
+        3600ms
         linear
         forwards;
 }
@@ -781,5 +781,105 @@ body.page-loaded .welcome-description {
     .railroad-option,
     .welcome-content {
         transition: none;
+    }
+}
+/* Updated automatic welcome scene */
+
+/* Small label above the title */
+
+.scene-label {
+    display: inline-block;
+
+    margin: 0 0 14px;
+    padding: 7px 12px;
+
+    color: #31566d;
+    background: rgba(143, 195, 223, 0.2);
+
+    border: 1px solid rgba(115, 174, 207, 0.35);
+    border-radius: 999px;
+
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+/* Fade the new label in when the page opens */
+
+body.page-loaded .scene-label {
+    animation: fade-up 650ms ease 50ms forwards;
+}
+
+/*
+    Keep the title, subheading, and description visible
+    while the train animation is running.
+*/
+
+.welcome-section.auto-sequence .welcome-content {
+    opacity: 1;
+    transform: none;
+}
+
+/* Mobile layout improvements */
+
+@media (max-width: 600px) {
+    .welcome-section {
+        min-height: 100svh;
+
+        justify-content: flex-start;
+
+        padding:
+            105px
+            18px
+            185px;
+    }
+
+    .welcome-content {
+        max-width: 370px;
+    }
+
+    .scene-label {
+        margin-bottom: 12px;
+        padding: 6px 10px;
+
+        font-size: 10px;
+    }
+
+    .welcome-title {
+        font-size: 39px;
+    }
+
+    .welcome-subheading {
+        margin-top: 14px;
+
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .welcome-description {
+        margin-top: 17px;
+
+        font-size: 15px;
+        line-height: 1.55;
+    }
+
+    /*
+        Move the train and track upward together.
+        This preserves their alignment.
+    */
+
+    .welcome-track {
+        bottom: 62px;
+    }
+
+    .moving-train {
+        bottom: -7px;
+
+        width: 300px;
+        max-width: 82vw;
     }
 }
