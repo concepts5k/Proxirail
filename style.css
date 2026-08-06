@@ -1,0 +1,648 @@
+/* ============================================================
+   ProxiRail
+   ============================================================ */
+
+:root {
+    /* Surfaces and text */
+    --bg: #0d141b;
+    --surface: #151e27;
+    --surface-alt: #1b262f;
+    --text: #e8eff4;
+    --secondary-text: #93a5b1;
+
+    /* Accent */
+    --accent: #8fc3df;
+    --accent-hover: #73aecf;
+    --accent-dark: #5b97be;
+
+    /* Lines and borders */
+    --border: #2a3844;
+    --line: #22303b;
+
+    /* Track */
+    --track-height: 92px;
+    --rail: #6b747d;
+    --tie: #2b333c;
+
+    /* Risk colours */
+    --risk-high: #e8796b;
+    --risk-mid: #e6c07b;
+    --risk-low: #7fd4a3;
+
+    /* Shape */
+    --radius: 10px;
+}
+
+/* General page settings */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: "Roboto", sans-serif;
+}
+
+button {
+    color: inherit;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ============================================================
+   Welcome section
+   ============================================================ */
+
+.welcome-section {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 24px 150px;
+
+    background: radial-gradient(
+        120% 80% at 50% 0%,
+        #182231 0%,
+        var(--bg) 65%
+    );
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 3;
+    max-width: 46rem;
+    text-align: center;
+
+    transition:
+        opacity 600ms ease,
+        transform 600ms ease;
+}
+
+/* Soft blue glow */
+
+.welcome-content::before {
+    content: "";
+
+    position: absolute;
+    z-index: -1;
+
+    left: 50%;
+    top: 46%;
+
+    width: 470px;
+    height: 470px;
+
+    transform: translate(-50%, -50%);
+
+    background: radial-gradient(
+        circle,
+        rgba(91, 151, 190, 0.17) 0%,
+        rgba(91, 151, 190, 0.07) 46%,
+        transparent 74%
+    );
+
+    pointer-events: none;
+}
+
+/* Small label above the title */
+
+.scene-label {
+    display: inline-block;
+
+    margin: 0 0 14px;
+    padding: 7px 12px;
+
+    color: var(--accent);
+    background: rgba(143, 195, 223, 0.12);
+
+    border: 1px solid rgba(115, 174, 207, 0.35);
+    border-radius: 999px;
+
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+/* Welcome title */
+
+.welcome-title {
+    margin: 0;
+    font-size: clamp(3rem, 11vw, 6.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Welcome subheading */
+
+.welcome-subheading {
+    margin: 0.75rem 0 0;
+    color: var(--accent);
+    font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Welcome opening animation */
+
+body.page-loaded .scene-label {
+    animation: fade-up 650ms ease 50ms forwards;
+}
+
+body.page-loaded .welcome-title {
+    animation: fade-up 800ms ease 300ms forwards;
+}
+
+body.page-loaded .welcome-subheading {
+    animation: fade-up 800ms ease 600ms forwards;
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FAU and CS3 logos */
+
+.organization-logos {
+    position: absolute;
+    z-index: 50;
+
+    top: 24px;
+    left: 28px;
+    right: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+.organization-logo {
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+}
+
+.fau-logo {
+    max-width: 145px;
+    max-height: 70px;
+}
+
+.cs3-logo {
+    max-width: 125px;
+    max-height: 70px;
+}
+
+/* --- Track ------------------------------------------------- */
+
+.welcome-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--track-height);
+    z-index: 1;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            var(--tie) 0 16px,
+            transparent 16px 52px
+        ),
+        linear-gradient(#11161d, #0a0e13);
+
+    border-top: 1px solid var(--line);
+}
+
+.welcome-track::before,
+.welcome-track::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(var(--rail), #4a525b);
+}
+
+.welcome-track::before {
+    top: 18px;
+}
+
+.welcome-track::after {
+    top: 46px;
+}
+
+/* ============================================================
+   PET Way section
+   ============================================================ */
+
+.pet-section {
+    padding: 5rem 1.5rem 7rem;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+}
+
+.section-container {
+    max-width: 68rem;
+    margin: 0 auto;
+}
+
+.pet-heading {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pet-heading h2 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.pet-heading h2::after {
+    content: "";
+    display: block;
+
+    width: 56px;
+    height: 3px;
+    margin: 0.75rem auto 0;
+
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.pet-heading p {
+    margin: 18px 0 0;
+
+    color: var(--secondary-text);
+
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Railroad ID row */
+
+.railroad-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+}
+
+.railroad-option {
+    flex: 1 1 10rem;
+    padding: 0.9rem 1.25rem;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        border-color 160ms ease,
+        background 160ms ease,
+        color 160ms ease;
+}
+
+.railroad-option:hover {
+    border-color: var(--accent-dark);
+    background: var(--surface-alt);
+}
+
+.railroad-option:focus-visible {
+    outline: 3px solid rgba(115, 174, 207, 0.45);
+    outline-offset: 3px;
+}
+
+.railroad-option.selected {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #10151c;
+}
+
+/* Selected railroad information */
+
+.railroad-display {
+    margin-top: 3rem;
+    padding: 2rem;
+
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+.selected-rail-label {
+    margin: 0;
+
+    color: var(--secondary-text);
+
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.selected-rail-id {
+    margin: 0.25rem 0 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+/* PET metric boxes */
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.metric-box {
+    padding: 1.25rem;
+
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.metric-label {
+    margin: 0;
+
+    color: var(--secondary-text);
+
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.metric-value {
+    margin: 0.5rem 0 0;
+
+    font-size: 1.6rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+}
+
+.metric-value.risk-high {
+    color: var(--risk-high);
+}
+
+.metric-value.risk-intermediate {
+    color: var(--risk-mid);
+}
+
+.metric-value.risk-low {
+    color: var(--risk-low);
+}
+
+.metric-note {
+    margin: 22px 0 0;
+
+    color: var(--secondary-text);
+
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* --- Crossing feed ----------------------------------------- */
+
+.feed-area {
+    margin-top: 32px;
+}
+
+.crossing-feed {
+    display: block;
+
+    width: 100%;
+    max-height: 480px;
+
+    background: #000;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.feed-placeholder {
+    min-height: 320px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    color: var(--secondary-text);
+
+    background: linear-gradient(
+        180deg,
+        #172029 0%,
+        #121a22 100%
+    );
+
+    border: 1px dashed #3a4855;
+    border-radius: var(--radius);
+
+    text-align: center;
+}
+
+.feed-placeholder p {
+    margin: 0;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Tablet layout */
+
+@media (max-width: 900px) {
+    .welcome-title {
+        font-size: 50px;
+    }
+
+    .pet-heading h2 {
+        font-size: 38px;
+    }
+
+    .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Smaller screens */
+
+@media (max-width: 700px) {
+    .railroad-options {
+        flex-wrap: nowrap;
+
+        max-width: 100%;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .railroad-option {
+        flex: 0 0 150px;
+
+        min-height: 54px;
+        padding: 13px 16px;
+
+        font-size: 15px;
+    }
+}
+
+/* Mobile layout */
+
+@media (max-width: 600px) {
+    :root {
+        --track-height: 78px;
+    }
+
+    .welcome-section {
+        min-height: 100svh;
+
+        justify-content: center;
+
+        padding: 130px 18px 160px;
+    }
+
+    .welcome-content {
+        max-width: 370px;
+    }
+
+    .welcome-content::before {
+        width: 330px;
+        height: 330px;
+    }
+
+    .scene-label {
+        margin-bottom: 12px;
+        padding: 6px 10px;
+
+        font-size: 10px;
+    }
+
+    .welcome-title {
+        font-size: 39px;
+    }
+
+    .welcome-subheading {
+        margin-top: 14px;
+
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .pet-section {
+        padding: 72px 18px;
+
+        border-top-left-radius: 28px;
+        border-top-right-radius: 28px;
+    }
+
+    .pet-heading h2 {
+        font-size: 32px;
+    }
+
+    .pet-heading p {
+        font-size: 16px;
+    }
+
+    .railroad-options {
+        margin-top: 38px;
+    }
+
+    .railroad-display {
+        margin-top: 48px;
+        padding: 30px 20px;
+    }
+
+    .selected-rail-id {
+        font-size: 24px;
+    }
+
+    .metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metric-value {
+        font-size: 26px;
+    }
+
+    .feed-placeholder {
+        min-height: 240px;
+    }
+}
+
+/* Reduced-motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .scene-label,
+    .welcome-title,
+    .welcome-subheading {
+        opacity: 1;
+        transform: none;
+        animation: none !important;
+    }
+
+    .railroad-option,
+    .welcome-content {
+        transition: none;
+    }
+}

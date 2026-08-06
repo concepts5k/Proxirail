@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="ProxiRail presents railway-crossing activity and Post-Encroachment Time information."
+    >
+
+    <title>ProxiRail</title>
+
+    <!-- Roboto font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Website CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <!-- Welcome section -->
+        <section
+            class="welcome-section"
+            id="welcome"
+            aria-labelledby="welcomeTitle"
+        >
+            <!-- FAU and CS3 logos -->
+            <div class="organization-logos">
+                <img
+                    class="organization-logo fau-logo"
+                    src="images/fau.png"
+                    alt="Florida Atlantic University"
+                    data-optional-image
+                >
+
+                <img
+                    class="organization-logo cs3-logo"
+                    src="images/cs3.png"
+                    alt="Center for Smart Streetscapes"
+                    data-optional-image
+                >
+            </div>
+
+            <!-- Welcome information -->
+            <div
+                class="welcome-content"
+                id="welcomeContent"
+            >
+                <p class="scene-label">
+                    Railway safety monitoring prototype
+                </p>
+
+                <h1
+                    class="welcome-title"
+                    id="welcomeTitle"
+                >
+                    ProxiRail
+                </h1>
+
+                <p class="welcome-subheading">
+                    Smarter awareness for safer railway crossings.
+                </p>
+            </div>
+
+            <!-- Railroad track -->
+            <div
+                class="welcome-track"
+                aria-hidden="true"
+            ></div>
+        </section>
+
+        <!-- PET Way section -->
+        <section
+            class="pet-section"
+            id="pet-way"
+            aria-labelledby="petWayTitle"
+        >
+            <div class="section-container">
+                <!-- PET Way heading -->
+                <div class="pet-heading">
+                    <h2 id="petWayTitle">
+                        PET Way
+                    </h2>
+
+                    <p>
+                        Post-Encroachment Time (PET) is the time gap
+                        between one road user leaving a shared conflict
+                        zone and another entering it &mdash; here, between
+                        a pedestrian and a train at a grade crossing.
+                        Shorter PET values indicate closer calls and
+                        higher risk. Select a railroad ID below to view
+                        its PET information and crossing feed.
+                    </p>
+                </div>
+
+                <!-- Railroad ID selection -->
+                <div
+                    class="railroad-options"
+                    role="group"
+                    aria-label="Railroad locations"
+                >
+                    <button
+                        class="railroad-option"
+                        type="button"
+                        aria-pressed="false"
+                        data-rail-id="Grade Crossing Sample"
+                    >
+                        Grade Crossing Sample
+                    </button>
+
+                    <button
+                        class="railroad-option"
+                        type="button"
+                        aria-pressed="false"
+                        data-rail-id="Intersection Sample"
+                    >
+                        Intersection Sample
+                    </button>
+
+
+                </div>
+
+                <!-- Hidden until a Rail ID is selected -->
+                <div
+                    class="railroad-display"
+                    id="railroadDisplay"
+                    aria-live="polite"
+                    hidden
+                >
+                    <p class="selected-rail-label">
+                        Selected railroad
+                    </p>
+
+                    <h3
+                        class="selected-rail-id"
+                        id="selectedRailId"
+                    >
+                        Rail ID
+                    </h3>
+
+                    <!-- PET measurements -->
+                    <div class="metric-grid">
+                        <article class="metric-box">
+                            <p class="metric-label">
+                                Minimum PET
+                            </p>
+
+                            <p
+                                class="metric-value"
+                                id="minPet"
+                            >
+                                &mdash;
+                            </p>
+
+                            <p class="metric-note">
+                                Shortest time gap recorded between a
+                                pedestrian and a vehicle at this crossing.
+                                Lower values indicate closer calls.
+                            </p>
+                        </article>
+
+                        <article class="metric-box">
+                            <p class="metric-label">
+                                Average PET
+                            </p>
+
+                            <p
+                                class="metric-value"
+                                id="avgPet"
+                            >
+                                &mdash;
+                            </p>
+
+                            <p class="metric-note">
+                                Mean time gap across all recorded
+                                pedestrian&ndash;vehicle encroachment events
+                                at this crossing.
+                            </p>
+                        </article>
+
+                        <article class="metric-box">
+                            <p class="metric-label">
+                                Conflict events
+                            </p>
+
+                            <p
+                                class="metric-value"
+                                id="conflictCount"
+                            >
+                                &mdash;
+                            </p>
+
+                            <p class="metric-note">
+                                Total number of encroachment events
+                                detected, where a pedestrian and vehicle
+                                occupied the crossing zone in close
+                                succession.
+                            </p>
+                        </article>
+
+                        <article class="metric-box">
+                            <p class="metric-label">
+                                PET risk category
+                            </p>
+
+                            <p
+                                class="metric-value"
+                                id="riskCategory"
+                            >
+                                &mdash;
+                            </p>
+
+                            <p class="metric-note">
+                                Overall safety classification for this
+                                crossing based on its PET distribution:
+                                Low, Intermediate, or High.
+                            </p>
+                        </article>
+                    </div>
+
+                    <!-- Crossing feed -->
+                    <div class="feed-area">
+                        <video
+                            class="crossing-feed"
+                            id="crossingFeed"
+                            controls
+                            muted
+                            playsinline
+                            preload="metadata"
+                            hidden
+                        ></video>
+
+                        <div
+                            class="feed-placeholder"
+                            id="feedMessage"
+                        >
+                            <p>
+                                Select a railroad to load its crossing feed.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Website JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
