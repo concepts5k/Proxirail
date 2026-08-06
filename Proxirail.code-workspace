@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "Pro/Proxirail"
+		}
+	],
+	"settings": {
+		"python-envs.defaultEnvManager": "ms-python.python:system"
+	}
+}
